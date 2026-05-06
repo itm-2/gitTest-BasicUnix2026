@@ -1,0 +1,10 @@
+cc = gcc
+CFLAGS = -Wall
+
+.PHONY: all clean
+
+all:
+	$(cc) $(CFLAGS) main.c add.c -o app
+
+clean:
+	rm -rf app *.o
