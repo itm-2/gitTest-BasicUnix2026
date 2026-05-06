@@ -1,5 +1,5 @@
 cc = gcc
-CFLAGS = -Wall -Iinclude
+CFLAGS = -Wall -Iinclude -MMD # Generate dependency files / include header files in the dependency list
 
 SRC = src/*.c # main.c add.c 로 해도 됨
 OBJ = $(SRC:.c=.o) # src/main.o src/add.o
