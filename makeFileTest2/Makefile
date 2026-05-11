@@ -17,7 +17,7 @@ clean:
 	rm -rf app *.o
 
 helloTest: abc def
-	echo $^
+	echo $@
 abc:
 	@echo abc
 # @ 빼면 echo abc도 출력되고, abc도 출력됨.

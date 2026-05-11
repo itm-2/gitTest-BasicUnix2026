@@ -1,34 +1,8 @@
-cc = gcc
-CFLAGS = -Wall -MMD # Generate dependency files / include header files in the dependency list
-
-DEBUG = -g
-RELEASE = -O2
-
-debug: CFAGS += $(DEBUG)
-debug: app
-
-release: CFLAGS += $(RELEASE)
-release: app
-SRC = main.c add.c
-OBJ = main.o add.o
-DEP = $(OBJ:.o=.d) # main.d add.d
-
-.PHONY: all clean
-
-app: $(OBJ)
-	$(cc) $(CFLAGS) $^ -o $@
-
-#%.o: %.c %.h
-#	$(cc) $(CFLAGS) -c $< -o $@
-# 주석 처리한 이유: %.o: %.c %.h는 main.o: main.c add.h, add.o: add.c add.h로 자동으로 변환됨. 따라서 명시적으로 작성할 필요가 없음.
-
-clean:
-	rm -rf app *.o
-
-helloTest: abc def
-	echo $^
-abc:
-	@echo abc
-# @ 빼면 echo abc도 출력되고, abc도 출력됨.
-def:
-	@echo def
+SRC = $(wildcard *.c) # src/main.c src/add.c
+OBJ = $(patsubst %.c, %.o, $(SRC)) # main.o add.o, src에 있는 모든 .c 파일을 .o 파일로 변환
+echo: $(SRC) # src/main.c src/add.c
+	@echo $^ 
+	@echo $<
+	@echo $@
+	@echo $(OBJ)
+	@echo $(patsubst %.c, %.o, $(SRC)) 
